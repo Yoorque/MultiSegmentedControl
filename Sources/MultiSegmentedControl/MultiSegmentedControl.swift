@@ -16,15 +16,19 @@ public struct Control: Identifiable, Hashable {
 }
 public struct MultiSegmentedControl: View {
 	let controls: [Binding<Control>]
-	var grayscaleWhiteAmount: CGFloat
-	
-	public init(controls: [Binding<Control>], grayscaleWhiteAmount: CGFloat = 0.8) {
+	let grayscaleWhiteAmount: CGFloat
+	let isHorizontal: Bool
+
+	public init(controls: [Binding<Control>], grayscaleWhiteAmount: CGFloat = 0.8, isHorizontal: Bool = true) {
 		self.controls = controls
 		self.grayscaleWhiteAmount = grayscaleWhiteAmount
+		self.isHorizontal = isHorizontal
 	}
 	
 	public var body: some View {
-		HStack(spacing: 1) {
+		let spacing: CGFloat = isHorizontal ? 1 : 2
+		let layout = isHorizontal ? AnyLayout(HStackLayout(spacing: spacing)) : AnyLayout(VStackLayout(spacing: spacing))
+		layout {
 			ForEach(controls, id: \.self.wrappedValue) { control in
 				SegmentElementView(
 					control: control,
@@ -32,7 +36,7 @@ public struct MultiSegmentedControl: View {
 				)
 			}
 		}
-		.frame(height: 30)
+		.frame(height: isHorizontal ? CGFloat(40 + spacing) : CGFloat((40 + Int(spacing)) * controls.count))
 		.padding(2)
 		.background(
 			RoundedRectangle(cornerRadius: 8)
@@ -80,23 +84,18 @@ struct ButtonPrev: View {
 				.strokeBorder(control1.isActive ? .black : .clear, lineWidth: 10)
 				.background(control2.isActive ? .blue : .clear)
 				.clipShape(.capsule)
-				.frame(width: 200, height: 100)
-				
 			
 			if !control1.isActive && !control2.isActive {
 				Text("No option selected")
 			}
-			MultiSegmentedControl(controls: [$control1, $control2])
-				.frame(height: 40)
-			
-			
+			Spacer()
+			MultiSegmentedControl(controls: [$control1, $control2], isHorizontal: false)
+			MultiSegmentedControl(controls: [$control1, $control2], isHorizontal: true)
 		}
 	}
 }
 
 #Preview {
-	VStack {
-		ButtonPrev()
-	}
+	ButtonPrev()
 		.padding()
 }

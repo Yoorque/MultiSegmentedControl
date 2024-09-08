@@ -9,7 +9,7 @@ public struct Control: Identifiable, Hashable {
 		self.name
 	}
 	
-	public init(name: String, isActive: Bool) {
+	public init(name: String = "Option", isActive: Bool = false) {
 		self.name = name
 		self.isActive = isActive
 	}
@@ -72,8 +72,8 @@ private struct SegmentElementView: View {
 }
 
 struct ButtonPrev: View {
-	@State var control1 = Control(name: "Border", isActive: true)
-	@State var control2 = Control(name: "Fill", isActive: false)
+	@State var control1 = Control()
+	@State var control2 = Control()
 	var body: some View {
 		VStack {
 			Capsule()

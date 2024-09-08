@@ -17,6 +17,12 @@ public struct Control: Identifiable, Hashable {
 public struct MultiSegmentedControl: View {
 	let controls: [Binding<Control>]
 	var grayscaleWhiteAmount: CGFloat = 0.8
+	
+	public init(controls: [Binding<Control>], grayscaleWhiteAmount: CGFloat) {
+		self.controls = controls
+		self.grayscaleWhiteAmount = grayscaleWhiteAmount
+	}
+	
 	public var body: some View {
 		HStack(spacing: 1) {
 			ForEach(controls, id: \.self.wrappedValue) { control in

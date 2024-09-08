@@ -36,7 +36,7 @@ public struct MultiSegmentedControl: View {
 				)
 			}
 		}
-		.frame(height: isHorizontal ? CGFloat(40 + spacing) : CGFloat((40 + Int(spacing)) * controls.count))
+		.frame(height: isHorizontal ? CGFloat(30 + spacing) : CGFloat((30 + Int(spacing)) * controls.count))
 		.padding(2)
 		.background(
 			RoundedRectangle(cornerRadius: 8)

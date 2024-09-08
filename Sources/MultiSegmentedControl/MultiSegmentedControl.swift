@@ -16,9 +16,9 @@ public struct Control: Identifiable, Hashable {
 }
 public struct MultiSegmentedControl: View {
 	let controls: [Binding<Control>]
-	var grayscaleWhiteAmount: CGFloat = 0.8
+	var grayscaleWhiteAmount: CGFloat
 	
-	public init(controls: [Binding<Control>], grayscaleWhiteAmount: CGFloat) {
+	public init(controls: [Binding<Control>], grayscaleWhiteAmount: CGFloat = 0.8) {
 		self.controls = controls
 		self.grayscaleWhiteAmount = grayscaleWhiteAmount
 	}

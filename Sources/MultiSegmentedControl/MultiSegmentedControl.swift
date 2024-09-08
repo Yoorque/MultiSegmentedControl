@@ -3,10 +3,15 @@
 import SwiftUI
 
 public struct Control: Identifiable, Hashable {
-	var name: String
-	var isActive: Bool
+	public var name: String
+	public var isActive: Bool
 	public var id: String {
 		self.name
+	}
+	
+	public init(name: String, isActive: Bool) {
+		self.name = name
+		self.isActive = isActive
 	}
 }
 public struct MultiSegmentedControl: View {

@@ -25,3 +25,9 @@ Toggling control elements will toggle _isActive_ property of the **Control**, wh
 ![One selected](Sources/Images/OneSelected.png)
 ### Both Selected
 ![Both selected](Sources/Images/BothSelected.png)
+
+Optionaly, you can adjust the grayscale color of the Elements, by adjusting _grayscaleWhiteAmount_, through _init()_. Default is **0.8**.
+
+``` swift
+MultiSegmentedControl(controls: [Binding<Control>], grayscaleWhiteAmount: CGFloat)
+```

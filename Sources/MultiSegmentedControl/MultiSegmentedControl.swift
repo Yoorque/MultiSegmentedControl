@@ -15,10 +15,22 @@ public struct Control: Identifiable, Hashable {
 	}
 }
 public struct MultiSegmentedControl: View {
+	@Environment (\.colorScheme) var colorScheme
 	let controls: [Binding<Control>]
 	let grayscaleWhiteAmount: CGFloat
 	let isHorizontal: Bool
 
+	var adjustedWhiteColor: CGFloat {
+		switch colorScheme {
+			case .light:
+				return grayscaleWhiteAmount
+			case .dark:
+				return 0
+			@unknown default:
+				return grayscaleWhiteAmount
+		}
+	}
+	
 	public init(controls: [Binding<Control>], grayscaleWhiteAmount: CGFloat = 0.8, isHorizontal: Bool = true) {
 		self.controls = controls
 		self.grayscaleWhiteAmount = grayscaleWhiteAmount
@@ -32,7 +44,7 @@ public struct MultiSegmentedControl: View {
 			ForEach(controls, id: \.self.wrappedValue) { control in
 				SegmentElementView(
 					control: control,
-					grayscaleWhiteAmount: grayscaleWhiteAmount
+					grayscaleWhiteAmount: adjustedWhiteColor
 				)
 			}
 		}
@@ -40,7 +52,7 @@ public struct MultiSegmentedControl: View {
 		.padding(2)
 		.background(
 			RoundedRectangle(cornerRadius: 8)
-				.fill(Color(white: grayscaleWhiteAmount + 0.1))
+				.fill(Color(white: adjustedWhiteColor + 0.1))
 		)
 	}
 }

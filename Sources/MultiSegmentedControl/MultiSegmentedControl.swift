@@ -81,17 +81,25 @@ struct ButtonPrev: View {
 	var body: some View {
 		VStack {
 			Capsule()
-				.strokeBorder(control1.isActive ? .black : .clear, lineWidth: 10)
-				.background(control2.isActive ? .blue : .clear)
+				.strokeBorder(control1.isActive ? .black : .init(white: 0.9), lineWidth: 10)
+				.background(control2.isActive ? .blue : .init(white: 0.9))
 				.clipShape(.capsule)
 			
 			if !control1.isActive && !control2.isActive {
 				Text("No option selected")
 			}
 			Spacer()
-			MultiSegmentedControl(controls: [$control1, $control2], isHorizontal: false)
-			MultiSegmentedControl(controls: [$control1, $control2], isHorizontal: true)
+			VStack(alignment: .leading, spacing: 4) {
+				Text("Vertical")
+				MultiSegmentedControl(controls: [$control1, $control2], isHorizontal: false)
+			}
+			VStack(alignment: .leading, spacing: 4) {
+				Text("Horizontal")
+				MultiSegmentedControl(controls: [$control1, $control2], isHorizontal: true)
+			}
 		}
+		.animation(.easeInOut, value: control1.isActive)
+		.animation(.easeInOut, value: control2.isActive)
 	}
 }
 

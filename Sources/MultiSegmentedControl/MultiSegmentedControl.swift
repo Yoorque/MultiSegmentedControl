@@ -4,14 +4,22 @@ import SwiftUI
 
 public struct Control: Identifiable, Hashable {
 	public var name: String
+	public var image: Image?
 	public var isActive: Bool
 	public var id: String {
 		self.name
 	}
 	
-	public init(name: String, isActive: Bool = false) {
+	public init(name: String, image: Image? = nil, isActive: Bool = false) {
 		self.name = name
 		self.isActive = isActive
+		self.image = image
+	}
+	
+	public func hash(into hasher: inout Hasher) {
+		hasher.combine(name)
+		hasher.combine(id)
+		hasher.combine(isActive)
 	}
 }
 public struct MultiSegmentedControl: View {
@@ -67,9 +75,18 @@ private struct SegmentElementView: View {
 					color(control.isActive).gradient
 						.shadow(shadow(control.isActive))
 				)
-			Text(control.name)
-				.font(.caption2)
-				.offset(x: control.isActive ? -1 : 0, y: control.isActive ? -1 : 0)
+			HStack {
+				Text(control.name)
+					.font(.caption2)
+				
+				if let image = control.image {
+					image
+						.resizable()
+						.aspectRatio(contentMode: .fit)
+						.frame(width: 14, height: 14)
+				}
+			}
+			.offset(x: control.isActive ? -1 : 0, y: control.isActive ? -1 : 0)
 		}
 		.onTapGesture {
 			control.isActive.toggle()
@@ -88,8 +105,8 @@ private struct SegmentElementView: View {
 }
 
 struct ButtonPrev: View {
-	@State var control1 = Control(name: "Border")
-	@State var control2 = Control(name: "Fill")
+	@State var control1 = Control(name: "Border", image: Image(systemName: "underline"))
+	@State var control2 = Control(name: "Fill", image: Image(systemName: "strikethrough"))
 	var body: some View {
 		VStack {
 			Capsule()

@@ -23,7 +23,7 @@ public struct Control: Identifiable, Hashable {
 	}
 }
 public struct MultiSegmentedControl: View {
-	@Environment (\.colorScheme) var colorScheme
+	@Environment(\.colorScheme) var colorScheme
 	let controls: [Binding<Control>]
 	let grayscaleWhiteAmount: CGFloat
 	let isHorizontal: Bool

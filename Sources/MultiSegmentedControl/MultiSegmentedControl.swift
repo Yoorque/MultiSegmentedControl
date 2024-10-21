@@ -109,13 +109,15 @@ struct ButtonPrev: View {
 	@State var control2 = Control(name: "Fill", image: Image(systemName: "strikethrough"))
 	var body: some View {
 		VStack {
-			Capsule()
-				.strokeBorder(control1.isActive ? .black : .init(white: 0.9), lineWidth: 10)
-				.background(control2.isActive ? .blue : .init(white: 0.9))
-				.clipShape(.capsule)
-			
-			if !control1.isActive && !control2.isActive {
-				Text("No option selected")
+			ZStack {
+				Capsule()
+					.strokeBorder(control1.isActive ? .black : .init(white: 0.9), lineWidth: 10)
+					.background(control2.isActive ? .blue : .init(white: 0.9))
+					.clipShape(.capsule)
+				
+				if !control1.isActive && !control2.isActive {
+					Text("No option selected")
+				}
 			}
 			Spacer()
 			VStack(alignment: .leading, spacing: 4) {
